@@ -1,0 +1,97 @@
+<h1>Sistem Pakar Faraidh</h1>
+<h3>Berdasar Al-Quran Annisa:11-12</h3>
+<h3>Metode Forward chain</h3>
+<h4>wawan sismadi 1711601433</h4>
+
+Kondisi: <p id='q'>q</p>
+Hasil: <p id='a'>a</p>
+<span>ktupad.com</span>
+
+<script>
+var es={
+faraidh:{
+  kadar:{
+    '1':'1/8',
+    '2':'1/6',
+    '3':'1/4',
+    '4':'1/3',
+    '5':'1/2',
+    '6':'2/3',
+  },
+  waris:{
+    '1':'Anak laki laki',
+    '2':'Cucu dari anak laki laki',
+    '3':'Bapak',
+    '4':'Suami',
+    '5':'Kakek',
+    '6':'Saudara kandung',
+    '7':'Saudara sebapak',
+    '8':'Saudara seibu',
+    '9':'Putra dari saudara sekandung',
+    '10':'Putra dari saudara sebapak',
+    '11':'Paman sekandung',
+    '12':'Paman sebapak',
+    '13':'Putra dari paman sekandung',
+    '14':'Putra dari paman sebapak',
+    '15':'Perempuan yang memerdekakan budak',
+    '16':'Anak perempuan',
+    '17':'Cucu perempuan dari anak laki laki',
+    '18':'Ibu',
+    '19':'Istri',
+    '20':'Ibu dari bapak',
+    '21':'Ibu dari ibu',
+    '22':'Saudari kandung',
+    '23':'Saudari sebapak',
+    '24':'Saudari seibu',
+    '25':'Perempuan yang memerdekakan budak',
+  },
+},
+aturan:{
+  // '1':function(){ return this.a1(); },
+  '4':'suami mendapat 1/2',
+  '4,16':'suami mendapat 1/4 dan dari sisanya anak perempuan mendapat 1/1',
+  '1,4,16':'suami mendapat 1/4 dan dari sisanya untuk anak laki laki mendapat 2/1 dari anak perempuan',
+  '19':'istri mendapat 1/4',
+  '16,19':'istri mendapat 1/8 dan dari sisanya anak perempuan mendapat 1/1',
+  '1,16,19':'istri mendapat 1/8 dan dari sisanya untuk anak laki laki mendapat 2/1 dari anak perempuan',
+  '8,24':'masing masing mendapat 1/6 jika masing masing lebih dari satu maka 1/3',
+  '1':'mendapat 1/1',
+  '16':'mendapat 1/2 jika lebih dari satu maka 2/3 ',
+  '1,16':'anak laki laki mendapat 2/1 dari anak perempuan',
+  // '3,18':'masing masing mendapat 1/6',
+  '3,18':'ibu mendapat 1/3 dan sisanya untuk bapak',
+  '3,18,24':'ibu mendapat 1/6 dan dari sisanya untuk ayah',
+  '1,16,19':'istri mendapat 1/8 dan dari sisanya untuk anak laki laki mendapat 2/1 dari anak perempuan',
+  '18,19':'istri mendapat 1/8 ibu mendapat 1/6',
+  '4,19':'suami mendapat 1/8 ibu mendapat 1/6',
+  '3,18,19':'istri mendapat 1/4, dan dari sisanya ibu mendapat 1/3, bapak mendapat 2/3',
+},
+a1:function(){
+  document.getElementById('a').innerHTML='misal';
+},
+q:function(){ return this.faraidh.waris; },
+a:function(){ return this.aturan; },
+tanya:function(){
+  var q=this.faraidh.waris;
+  var out='';
+  // out +='0<input type="number" name="harta" value=""> = Jumlah Harta<br>';
+  for(i in q){
+    out +=i;
+    // out +='<input type="number" name="txt" value="">';
+    out +='<input type="checkbox" name="cb" value="'+i+'">'+q[i]+'<br>';}
+  out +='<input type="submit" onclick=es.jawab() ><br>';
+  document.getElementById('q').innerHTML=out;
+},
+jawab:function(){
+  var a=this.aturan;
+  var data=[];
+  var c=document.getElementsByName('cb');
+  for (var i=0;i<c.length;i++) c[i].checked? data[data.length]=c[i].value:null;
+  data.join(",");
+  console.log(data.length);
+  out=a[data];
+  if(data.length==1){ out=a['1'];}
+  document.getElementById('a').innerHTML=out;
+}}
+es.tanya();
+</script>
